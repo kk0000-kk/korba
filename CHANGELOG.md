@@ -1,4 +1,7 @@
-## [Unreleased]
+## [0.2.0] - 2024-12-08
+
+- Enable to create tle object from string
+- Enable to calculate height
 
 ## [0.1.0] - 2024-11-30
 
