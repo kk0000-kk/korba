@@ -1,28 +1,55 @@
+[![Gem Version](https://badge.fury.io/rb/korba.svg)](https://rubygems.org/gems/korba)
+
 # Korba
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/korba`. To experiment with that code, run `bin/console` for an interactive prompt.
+An orbital analytics library for ruby.
 
 ## Installation
-
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
 
 Install the gem and add to the application's Gemfile by executing:
 
 ```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+bundle add korba
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install korba
 ```
 
 ## Usage
 
-TODO: Write usage instructions here
+### Create Orbital Elements From TLE(Two Line Elements)
+
+```ruby
+orbit = Korba::Tle.new(<<~TLE)
+      ISS (ZARYA)
+      1 25544U 98067A   24342.85930654  .00018474  00000+0  32681-3 0  9991
+      2 25544  51.6381 174.9565 0006817 314.0303 175.4461 15.50337242485488
+    TLE
+
+orbit.semi_major_axis
+# => 6793877.649839985
+
+orbit.height_at_perigee
+# => 411109.2634460889
+
+orbit.height_at_apogee
+# => 420372.03623388056
+
+orbit.to_kep
+# =>
+# #<Korba::Kep:xxxxxxxxxxxxxxxx
+#  @arg_of_pericenter=314.0303,
+#  @eccentricity=0.0006817,
+#  @epoch="2024-12-07T20:37:24.085055",
+#  @inclination=51.6381,
+#  @mean_anomaly=175.4461,
+#  @object_name="ISS (ZARYA)",
+#  @ra_of_asc_node=174.9565,
+#  @semi_major_axis=6793877.649839985>
+```
 
 ## Development
 
@@ -32,4 +59,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/korba.
+Bug reports and pull requests are welcome on GitHub at https://github.com/kk0000-kk/korba.
