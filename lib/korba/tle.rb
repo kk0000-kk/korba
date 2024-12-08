@@ -1,6 +1,10 @@
 # frozen_string_literal: true
+require_relative "orbit_utils"
+
 module Korba
   class Tle
+    include Korba::OrbitUtils
+
     attr_reader :tle_json, :object_name, :object_id, :epoch, :mean_motion, :eccentricity, :inclination, :ra_of_asc_node, :arg_of_pericenter, :mean_anomaly
 
     def initialize(tle, type: :string)
@@ -10,11 +14,6 @@ module Korba
       when :json
         initialize_from_json(tle)
       end
-    end
-
-    def semi_major_axis
-      # a = (μ / n^2)^(1/3) m
-      (Korba::Constant::GME / (mean_motion * 2 * Math::PI / 86400.0) ** 2.0) ** (1.0 / 3.0)
     end
 
     def to_kep

@@ -2,7 +2,9 @@
 
 module Korba
   class Constant
-    # 3.986004418(8)×10^14 m3/s2
+    # geocentric gravitational constant in m3/s2
     GME = 3.9860044188e14
+    # nominal equatorial Earth radius in m
+    EARTH_RADIUS = 6378137
   end
 end

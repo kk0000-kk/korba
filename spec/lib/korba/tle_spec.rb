@@ -32,6 +32,8 @@ RSpec.describe Korba::Tle do
     expect(tle.arg_of_pericenter).to eq(314.0303)
     expect(tle.mean_anomaly).to eq(175.4461)
     expect(tle.semi_major_axis).to eq(6793877.651258321)
+    expect(tle.height_at_apogee).to eq(420372.03765318263)
+    expect(tle.height_at_perigee).to eq(411109.26486345753)
   end
 
   it "can transform to kep" do
@@ -64,6 +66,8 @@ RSpec.describe Korba::Tle do
     expect(kep.arg_of_pericenter).to eq(314.0303)
     expect(kep.mean_anomaly).to eq(175.4461)
     expect(kep.semi_major_axis).to eq(6793877.651258321)
+    expect(kep.height_at_apogee).to eq(420372.03765318263)
+    expect(kep.height_at_perigee).to eq(411109.26486345753)
   end
 
   it "can create tle object from string" do
@@ -83,5 +87,7 @@ RSpec.describe Korba::Tle do
     expect(tle.arg_of_pericenter).to eq(314.0303)
     expect(tle.mean_anomaly).to eq(175.4461)
     expect(tle.semi_major_axis).to eq(6793877.649839985)
+    expect(tle.height_at_apogee).to eq(420372.03623388056)
+    expect(tle.height_at_perigee).to eq(411109.2634460889)
   end
 end
