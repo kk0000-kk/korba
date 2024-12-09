@@ -1,3 +1,7 @@
+## [0.4.0] - 2024-12-09
+
+- Enable save tle_string
+
 ## [0.3.0] - 2024-12-09
 
 - Enable instance creation without arguments
