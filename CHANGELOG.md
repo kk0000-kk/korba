@@ -1,3 +1,7 @@
+## [0.3.0] - 2024-12-09
+
+- Enable instance creation without arguments
+
 ## [0.2.0] - 2024-12-08
 
 - Enable to create tle object from string
