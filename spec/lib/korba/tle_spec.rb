@@ -22,6 +22,7 @@ RSpec.describe Korba::Tle do
       "MEAN_MOTION_DDOT": 0,
     }
     tle = Korba::Tle.new(tle_json, type: :json)
+    expect(tle.tle_json).to eq(tle_json)
     expect(tle.object_name).to eq("ISS (ZARYA)")
     expect(tle.object_id).to eq("1998-067A")
     expect(tle.epoch).to eq("2024-12-07T20:37:24.085056")
@@ -77,6 +78,7 @@ RSpec.describe Korba::Tle do
       2 25544  51.6381 174.9565 0006817 314.0303 175.4461 15.50337242485488
     TLE
     tle = Korba::Tle.new(tle_text, type: :string)
+    expect(tle.tle_string).to eq(tle_text)
     expect(tle.object_name).to eq("ISS (ZARYA)")
     expect(tle.object_id).to be_nil
     expect(tle.epoch).to eq("2024-12-07T20:37:24.085055")

@@ -5,7 +5,7 @@ module Korba
   class Tle
     include Korba::OrbitUtils
 
-    attr_reader :tle_json, :object_name, :object_id, :epoch, :mean_motion, :eccentricity, :inclination, :ra_of_asc_node, :arg_of_pericenter, :mean_anomaly
+    attr_reader :tle_json, :tle_string, :object_name, :object_id, :epoch, :mean_motion, :eccentricity, :inclination, :ra_of_asc_node, :arg_of_pericenter, :mean_anomaly
 
     def initialize(tle = nil, type: :string)
       return if tle.nil?
@@ -32,6 +32,7 @@ module Korba
     private
 
     def initialize_from_string(tle_string)
+      @tle_string = tle_string
       lines = tle_string.split(/\R/)
       @object_name = lines.shift if lines.size > 2
       parse_line1(lines[0].split(" "))
