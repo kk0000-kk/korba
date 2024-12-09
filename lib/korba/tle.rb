@@ -7,7 +7,9 @@ module Korba
 
     attr_reader :tle_json, :object_name, :object_id, :epoch, :mean_motion, :eccentricity, :inclination, :ra_of_asc_node, :arg_of_pericenter, :mean_anomaly
 
-    def initialize(tle, type: :string)
+    def initialize(tle = nil, type: :string)
+      return if tle.nil?
+
       case type
       when :string
         initialize_from_string(tle)
