@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_relative "orbit_utils"
 
 module Korba
   class Kep
@@ -19,13 +18,6 @@ module Korba
     end
 
     def to_car
-    end
-
-    def eccentric_anomaly
-      f = Korba::KeplerEquationFunction.new(eccentricity:, mean_anomaly:)
-      x = [deg_to_rad(mean_anomaly)]
-      nlsolve(f, x)
-      rad_to_deg(x[0])
     end
   end
 end

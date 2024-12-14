@@ -16,6 +16,14 @@ RSpec.describe Korba::Kep do
     expect(kep.eccentric_anomaly).to be_within(175.44910).of(175.44920)
   end
 
+  it 'can calculate distance (r)' do
+    expect(kep.distance).to be_within(6798494.434999760).of(6798494.434999762)
+  end
+
+  it 'can calculate velocity' do
+    expect(kep.velocity).to be_within(7654.465690417848).of(7654.465690417850)
+  end
+
   xit "can transform to car" do
     car = kep.to_car
     expect(car.x).to eq(4019753.862)

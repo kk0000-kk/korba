@@ -15,6 +15,21 @@ module Korba
       semi_major_axis * (1 + eccentricity) - Korba::Constant::EARTH_RADIUS
     end
 
+    def eccentric_anomaly
+      f = Korba::KeplerEquationFunction.new(eccentricity:, mean_anomaly:)
+      x = [deg_to_rad(mean_anomaly)]
+      nlsolve(f, x)
+      rad_to_deg(x[0])
+    end
+
+    def distance
+      semi_major_axis * (1 - eccentricity * Math.cos(deg_to_rad(eccentric_anomaly)))
+    end
+
+    def velocity
+      Math.sqrt(Korba::Constant::GME * (2 / distance - 1 / semi_major_axis))
+    end
+
     def deg_to_rad(deg)
       rad = deg * Math::PI / 180.0
       normalize_rad(rad)
