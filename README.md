@@ -38,7 +38,7 @@ orbit.height_at_perigee
 orbit.height_at_apogee
 # => 420372.03623388056
 
-orbit.to_kep
+kep = orbit.to_kep
 # =>
 # #<Korba::Kep:xxxxxxxxxxxxxxxx
 #  @arg_of_pericenter=314.0303,
@@ -49,7 +49,27 @@ orbit.to_kep
 #  @object_name="ISS (ZARYA)",
 #  @ra_of_asc_node=174.9565,
 #  @semi_major_axis=6793877.649839985>
+
+kep.to_car
+# =>
+# #<Korba::Car:xxxxxxxxxxxxxxxx
+#  @epoch="2024-12-07T20:37:24.085055",
+#  @object_name="ISS (ZARYA)",
+#  @vx=6150.772410883998,
+#  @vy=2489.3298780751356,
+#  @vz=-3816.0301666253677,
+#  @x=4019753.8621700387,
+#  @y=-3623966.518673545,
+#  @z=4114361.6934797494>
+
 ```
+
+## References
+
+- 宇宙工学シリーズ 3 人工衛星と宇宙探査機
+  - https://www.coronasha.co.jp/np/isbn/9784339012316/
+- 人工衛星の軌道 概論
+  - https://www.coronasha.co.jp/np/isbn/9784339046403/
 
 ## Development
 

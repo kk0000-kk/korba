@@ -3,7 +3,7 @@ require_relative "orbit_utils"
 
 module Korba
   class Tle
-    include Korba::OrbitUtils
+    include OrbitUtils
 
     attr_reader :tle_json, :tle_string, :object_name, :object_id, :epoch, :mean_motion, :eccentricity, :inclination, :ra_of_asc_node, :arg_of_pericenter, :mean_anomaly
 
@@ -19,14 +19,19 @@ module Korba
     end
 
     def to_kep
-      Korba::Kep.new(object_name:,
-                     epoch:,
-                     semi_major_axis:,
-                     eccentricity:,
-                     inclination:,
-                     ra_of_asc_node:,
-                     arg_of_pericenter:,
-                     mean_anomaly:)
+      Kep.new(object_name:,
+              epoch:,
+              semi_major_axis:,
+              eccentricity:,
+              inclination:,
+              ra_of_asc_node:,
+              arg_of_pericenter:,
+              mean_anomaly:)
+    end
+
+    def to_car
+      kep = to_kep
+      kep.to_car
     end
 
     private
