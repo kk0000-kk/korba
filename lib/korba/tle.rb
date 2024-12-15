@@ -29,6 +29,11 @@ module Korba
               mean_anomaly:)
     end
 
+    def to_car
+      kep = to_kep
+      kep.to_car
+    end
+
     private
 
     def initialize_from_string(tle_string)
