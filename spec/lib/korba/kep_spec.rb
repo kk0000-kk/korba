@@ -12,25 +12,29 @@ RSpec.describe Korba::Kep do
     semi_major_axis: 6793877.649839985,
   )
 
-  it 'can calculate eccentric anomaly' do
-    expect(kep.eccentric_anomaly).to be_within(175.44910).of(175.44920)
+  it "can calculate eccentric anomaly" do
+    expect(kep.eccentric_anomaly).to be_within(0.00001).of(175.44919)
   end
 
-  it 'can calculate distance (r)' do
-    expect(kep.distance).to be_within(6798494.434999760).of(6798494.434999762)
+  it "can calculate distance (r)" do
+    expect(kep.distance).to be_within(0.00001).of(6798494.43521)
   end
 
-  it 'can calculate velocity' do
-    expect(kep.velocity).to be_within(7654.465690417848).of(7654.465690417850)
+  it "can calculate velocity" do
+    expect(kep.velocity).to be_within(0.00001).of(7654.46606)
   end
 
-  xit "can transform to car" do
+  it "can calculate true anomaly" do
+    expect(kep.true_anomaly).to be_within(0.00001).of(175.45229)
+  end
+
+  it "can transform to car" do
     car = kep.to_car
-    expect(car.x).to eq(4019753.862)
-    expect(car.y).to eq(-3623966.519)
-    expect(car.z).to eq(4114361.693)
-    expect(car.vx).to eq(6150.772)
-    expect(car.vy).to eq(2489.330)
-    expect(car.vz).to eq(-3816.030)
+    expect(car.x).to be_within(0.001).of(4019753.862)
+    expect(car.y).to be_within(0.001).of(-3623966.519)
+    expect(car.z).to be_within(0.001).of(4114361.693)
+    expect(car.vx).to be_within(0.001).of(6150.772)
+    expect(car.vy).to be_within(0.001).of(2489.330)
+    expect(car.vz).to be_within(0.001).of(-3816.030)
   end
 end

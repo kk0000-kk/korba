@@ -3,7 +3,7 @@ require_relative "newton_function"
 
 module Korba
   class KeplerEquationFunction < NewtonFunction
-    include Korba::OrbitUtils
+    include OrbitUtils
 
     attr_reader :eccentricity, :mean_anomaly
 

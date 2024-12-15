@@ -4,22 +4,27 @@ module Korba
   module OrbitUtils
     def semi_major_axis
       # a = (μ / n^2)^(1/3) m
-      (Korba::Constant::GME / (mean_motion * 2 * Math::PI / 86400.0) ** 2.0) ** (1.0 / 3.0)
+      (Constant::GME / (mean_motion * 2 * Math::PI / 86400.0) ** 2.0) ** (1.0 / 3.0)
     end
 
     def height_at_perigee
-      semi_major_axis * (1 - eccentricity) - Korba::Constant::EARTH_RADIUS
+      semi_major_axis * (1 - eccentricity) - Constant::EARTH_RADIUS
     end
 
     def height_at_apogee
-      semi_major_axis * (1 + eccentricity) - Korba::Constant::EARTH_RADIUS
+      semi_major_axis * (1 + eccentricity) - Constant::EARTH_RADIUS
     end
 
     def eccentric_anomaly
-      f = Korba::KeplerEquationFunction.new(eccentricity:, mean_anomaly:)
+      f = KeplerEquationFunction.new(eccentricity:, mean_anomaly:)
       x = [deg_to_rad(mean_anomaly)]
       nlsolve(f, x)
       rad_to_deg(x[0])
+    end
+
+    def true_anomaly
+      factor = (Math.cos(deg_to_rad(eccentric_anomaly)) - eccentricity) / (1 - eccentricity * Math.cos(deg_to_rad(eccentric_anomaly)))
+      rad_to_deg(Math.acos(factor))
     end
 
     def distance
@@ -27,7 +32,12 @@ module Korba
     end
 
     def velocity
-      Math.sqrt(Korba::Constant::GME * (2 / distance - 1 / semi_major_axis))
+      Math.sqrt(Constant::GME * (2 / distance - 1 / semi_major_axis))
+    end
+
+    def path_angle
+      factor = Math.sqrt(Constant::GME * semi_major_axis * (1 - eccentricity ** 2)) / (distance * velocity)
+      rad_to_deg(Math.acos(factor))
     end
 
     def deg_to_rad(deg)
