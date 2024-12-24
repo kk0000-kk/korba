@@ -82,14 +82,14 @@ RSpec.describe Korba::Tle do
     expect(tle.object_name).to eq("ISS (ZARYA)")
     expect(tle.object_id).to be_nil
     expect(tle.epoch).to eq("2024-12-07T20:37:24.085055")
-    expect(tle.mean_motion).to eq(15.50337242485488)
+    expect(tle.mean_motion).to eq(15.50337242)
     expect(tle.eccentricity).to eq(0.0006817)
     expect(tle.inclination).to eq(51.6381)
     expect(tle.ra_of_asc_node).to eq(174.9565)
     expect(tle.arg_of_pericenter).to eq(314.0303)
     expect(tle.mean_anomaly).to eq(175.4461)
-    expect(tle.semi_major_axis).to eq(6793877.649839985)
-    expect(tle.height_at_apogee).to eq(420372.03623388056)
-    expect(tle.height_at_perigee).to eq(411109.2634460889)
+    expect(tle.semi_major_axis).to eq(6793877.651258321)
+    expect(tle.height_at_apogee).to eq(420372.03765318263)
+    expect(tle.height_at_perigee).to eq(411109.26486345753)
   end
 end

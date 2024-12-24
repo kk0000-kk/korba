@@ -60,7 +60,7 @@ module Korba
       @eccentricity = "0.#{line2_strings[4]}".to_f
       @arg_of_pericenter = line2_strings[5].to_f
       @mean_anomaly = line2_strings[6].to_f
-      @mean_motion = line2_strings[7].to_f
+      @mean_motion = line2_strings[7][0..10].to_f
     end
 
     def initialize_from_json(tle_json)
