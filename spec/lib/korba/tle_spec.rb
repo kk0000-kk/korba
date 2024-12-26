@@ -28,6 +28,8 @@ RSpec.describe Korba::Tle do
     expect(tle.satellite_number).to eq(25544)
     expect(tle.classification_type).to eq("U")
     expect(tle.epoch).to eq("2024-12-07T20:37:24.085056")
+    expect(tle.mean_motion_dot).to eq 0.00018474
+    expect(tle.mean_motion_ddot).to eq 0
     expect(tle.bstar).to eq(0.00032681)
     expect(tle.element_set_no).to eq(999)
     expect(tle.mean_motion).to eq(15.50337242)
@@ -92,6 +94,8 @@ RSpec.describe Korba::Tle do
     expect(tle.satellite_number).to eq(25544)
     expect(tle.classification_type).to eq("U")
     expect(tle.epoch).to eq("2024-12-07T20:37:24.085055")
+    expect(tle.mean_motion_dot).to eq 0.00018474
+    expect(tle.mean_motion_ddot).to eq 0
     expect(tle.bstar).to be_within(0.00000001).of(0.00032681)
     expect(tle.element_set_no).to eq(999)
     expect(tle.mean_motion).to eq(15.50337242)

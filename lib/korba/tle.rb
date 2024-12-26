@@ -6,8 +6,9 @@ module Korba
     include OrbitUtils
 
     attr_reader :tle_json, :tle_string, :object_id, :object_name, :epoch_datetime, :julian_date,
-                :satellite_number, :classification_type, :epoch, :bstar, :element_set_no,
-                :inclination, :ra_of_asc_node, :eccentricity, :arg_of_pericenter, :mean_anomaly, :mean_motion, :revolution_number
+                :satellite_number, :classification_type, :epoch, :mean_motion_dot, :mean_motion_ddot, :bstar, :element_set_no,
+                :inclination, :ra_of_asc_node, :eccentricity, :arg_of_pericenter, :mean_anomaly, :mean_motion, :revolution_number,
+                :element_set_record, :epoch_days
 
     def initialize(tle = nil, type: :string)
       return if tle.nil?
@@ -53,10 +54,20 @@ module Korba
       @classification_type = line1_strings[1][-1]
       # For now, only supports years after 2000
       epoch_year = line1_strings[3][0..1].to_i + 2000
-      epoch_day_of_year = line1_strings[3][2..].to_f
-      # Subtract 1 from epoch_day_of_year because January 1st is considered day 1
-      epoch_time = Time.new(epoch_year, 1, 1, 0, 0, 0, "+00:00") + (epoch_day_of_year - 1) * 24 * 60 * 60
+      @epoch_days = line1_strings[3][2..].to_f
+      # Subtract 1 from epoch_days because January 1st is considered day 1
+      epoch_time = Time.new(epoch_year, 1, 1, 0, 0, 0, "+00:00") + (epoch_days - 1) * 24 * 60 * 60
       @epoch = epoch_time.strftime("%Y-%m-%dT%H:%M:%S.%6N")
+
+      mean_motion_dot_sign = line1_strings[4][0] == "-" ? -1 : 1
+      mean_motion_dot_value_start = line1_strings[4].size == 10 ? 1 : 0
+      @mean_motion_dot = mean_motion_dot_sign * "0#{line1_strings[4][mean_motion_dot_value_start..]}".to_f
+
+      mean_motion_ddot_sign = line1_strings[5][0] == "-" ? -1 : 1
+      mean_motion_ddot_value_start = line1_strings[5].size == 8 ? 1 : 0
+      mean_motion_ddot_exponent = line1_strings[5][mean_motion_ddot_value_start + 5..mean_motion_ddot_value_start + 6].to_i
+      @mean_motion_ddot =
+        mean_motion_ddot_sign * "0.#{line1_strings[5][mean_motion_ddot_value_start..mean_motion_ddot_value_start + 4]}".to_f * 10 ** mean_motion_ddot_exponent
 
       bstar_sign = line1_strings[6][0] == "-" ? -1 : 1
       bstar_value_start = line1_strings[6].size == 8 ? 1 : 0
@@ -83,6 +94,8 @@ module Korba
       @satellite_number = tle_json[:NORAD_CAT_ID]
       @classification_type = tle_json[:CLASSIFICATION_TYPE]
       @epoch = tle_json[:EPOCH]
+      @mean_motion_dot = tle_json[:MEAN_MOTION_DOT]
+      @mean_motion_ddot = tle_json[:MEAN_MOTION_DDOT]
       @bstar = tle_json[:BSTAR]
       @element_set_no = tle_json[:ELEMENT_SET_NO]
       @mean_motion = tle_json[:MEAN_MOTION]
