@@ -1,3 +1,7 @@
+## [0.6.0] - 2024-12-27
+
+- Enable use SGP4
+
 ## [0.5.0] - 2024-12-15
 
 - Enable transformation to Cartesian elements
