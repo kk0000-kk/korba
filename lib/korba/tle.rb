@@ -20,6 +20,7 @@ module Korba
         initialize_from_json(tle)
       end
       set_epoch_datetime_and_julian_date
+      set_element_set_record_values
     end
 
     def to_kep
@@ -36,6 +37,18 @@ module Korba
     def to_car
       kep = to_kep
       kep.to_car
+    end
+
+    def propagate_to(minutesAfterEpoch)
+      r = [0, 0, 0]
+      v = [0, 0, 0]
+
+      @element_set_record.error = 0
+      SGP4.sgp4(@element_set_record, minutesAfterEpoch, r, v)
+      @sgp4Error = @element_set_record.error
+      r = r.map { _1 * 1000 }
+      v = v.map { _1 * 1000 }
+      Car.new(object_name:, epoch:, x: r[0], y: r[1], z: r[2], vx: v[0], vy: v[1], vz: v[2])
     end
 
     private
@@ -112,6 +125,33 @@ module Korba
       @julian_date = SGP4.jday(
         epoch_datetime.year, epoch_datetime.mon, epoch_datetime.day, epoch_datetime.hour, epoch_datetime.min, epoch_datetime.sec
       )
+    end
+
+    def set_element_set_record_values
+      @element_set_record = ElsetRec.new
+      @element_set_record.whichconst = 3 # wgs84
+      @element_set_record.epochyr = epoch_datetime.year
+      @element_set_record.epochdays = epoch_days
+      @element_set_record.jdsatepoch = julian_date[0]
+      @element_set_record.jdsatepochF = julian_date[1]
+
+      @element_set_record.classification = classification_type
+      @element_set_record.elnum = element_set_no
+      @element_set_record.revnum = revolution_number
+      @element_set_record.satnum = satellite_number
+      @element_set_record.bstar = bstar
+      @element_set_record.inclo = deg_to_rad(inclination)
+      @element_set_record.nodeo = deg_to_rad(ra_of_asc_node)
+      @element_set_record.argpo = deg_to_rad(arg_of_pericenter)
+      @element_set_record.mo = deg_to_rad(mean_anomaly)
+      @element_set_record.ecco = eccentricity
+
+      xpdotp = 1440.0 / (2.0 * Math::PI)
+      @element_set_record.no_kozai = mean_motion / xpdotp
+      @element_set_record.ndot = mean_motion_dot / (xpdotp * 1440.0)
+      @element_set_record.nddot = mean_motion_ddot / (xpdotp * 1440.0 * 1440.0)
+      # update element_set_record
+      SGP4.sgp4init("a", @element_set_record)
     end
   end
 end

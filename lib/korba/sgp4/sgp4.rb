@@ -1,5 +1,6 @@
 module Korba
   class SGP4
+    #     copied from https://github.com/aholinch/sgp4
     #     ----------------------------------------------------------------
     #
     #                               sgp4unit.cpp
@@ -1910,7 +1911,7 @@ module Korba
         rec.j3oj2 = rec.j3 / rec.j2
       else # WGS84
         #// ------------ WGS-84 constants ------------
-        rec.mu = 398600.5          #  // in km3 / s2
+        rec.mu = 398600.44188          #  // in km3 / s2
         rec.radiusearthkm = 6378.137  #   // km
         rec.xke = 60.0 / Math.sqrt(rec.radiusearthkm * rec.radiusearthkm * rec.radiusearthkm / rec.mu)
         rec.tumin = 1.0 / rec.xke
