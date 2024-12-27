@@ -70,6 +70,8 @@ kep.to_car
   - https://www.coronasha.co.jp/np/isbn/9784339012316/
 - 人工衛星の軌道 概論
   - https://www.coronasha.co.jp/np/isbn/9784339046403/
+- SGP4
+  - https://github.com/aholinch/sgp4
 
 ## Development
 
