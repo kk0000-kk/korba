@@ -35,8 +35,7 @@ module Korba
     end
 
     def to_car
-      kep = to_kep
-      kep.to_car
+      propagate_to(0)
     end
 
     def propagate_to(minutesAfterEpoch)
