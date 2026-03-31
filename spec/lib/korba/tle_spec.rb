@@ -24,7 +24,7 @@ RSpec.describe Korba::Tle do
     tle = Korba::Tle.new(tle_json, type: :json)
     expect(tle.tle_json).to eq(tle_json)
     expect(tle.object_name).to eq("ISS (ZARYA)")
-    expect(tle.object_id).to eq("1998-067A")
+    expect(tle.sattelite_id).to eq("1998-067A")
     expect(tle.satellite_number).to eq(25544)
     expect(tle.classification_type).to eq("U")
     expect(tle.epoch).to eq("2024-12-07T20:37:24.085056")
@@ -90,7 +90,7 @@ RSpec.describe Korba::Tle do
     tle = Korba::Tle.new(tle_text, type: :string)
     expect(tle.tle_string).to eq(tle_text)
     expect(tle.object_name).to eq("ISS (ZARYA)")
-    expect(tle.object_id).to be_nil
+    expect(tle.sattelite_id).to be_nil
     expect(tle.satellite_number).to eq(25544)
     expect(tle.classification_type).to eq("U")
     expect(tle.epoch).to eq("2024-12-07T20:37:24.085055")
