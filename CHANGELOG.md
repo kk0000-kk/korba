@@ -1,3 +1,8 @@
+## [0.7.0] - 2026-04-01
+
+- FIX: Use SGP4 for TLE to Cartesian conversion
+- FIX: Remove Newton's method library and implement Kepler equation processing
+
 ## [0.6.0] - 2024-12-27
 
 - Enable use SGP4
