@@ -5,7 +5,7 @@ module Korba
   class Tle
     include OrbitUtils
 
-    attr_reader :tle_json, :tle_string, :object_id, :object_name, :epoch_datetime, :julian_date,
+    attr_reader :tle_json, :tle_string, :sattelite_id, :object_name, :epoch_datetime, :julian_date,
                 :satellite_number, :classification_type, :epoch, :mean_motion_dot, :mean_motion_ddot, :bstar, :element_set_no,
                 :inclination, :ra_of_asc_node, :eccentricity, :arg_of_pericenter, :mean_anomaly, :mean_motion, :revolution_number,
                 :element_set_record, :epoch_days
@@ -35,8 +35,7 @@ module Korba
     end
 
     def to_car
-      kep = to_kep
-      kep.to_car
+      propagate_to(0)
     end
 
     def propagate_to(minutesAfterEpoch)
@@ -62,7 +61,7 @@ module Korba
     end
 
     def parse_line1(line1_strings)
-      # TODO: object_id
+      # TODO: sattelite_id
       @satellite_number = line1_strings[1][0..4].to_i
       @classification_type = line1_strings[1][-1]
       # For now, only supports years after 2000
@@ -103,7 +102,7 @@ module Korba
     def initialize_from_json(tle_json)
       @tle_json = tle_json
       @object_name = tle_json[:OBJECT_NAME]
-      @object_id = tle_json[:OBJECT_ID]
+      @sattelite_id = tle_json[:OBJECT_ID]
       @satellite_number = tle_json[:NORAD_CAT_ID]
       @classification_type = tle_json[:CLASSIFICATION_TYPE]
       @epoch = tle_json[:EPOCH]

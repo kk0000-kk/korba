@@ -16,10 +16,8 @@ module Korba
     end
 
     def eccentric_anomaly
-      f = KeplerEquationFunction.new(eccentricity:, mean_anomaly:)
-      x = [deg_to_rad(mean_anomaly)]
-      nlsolve(f, x)
-      rad_to_deg(x[0])
+      kepler = KeplersEquation.new(eccentricity:, mean_anomaly:)
+      rad_to_deg(kepler.solve)
     end
 
     def true_anomaly

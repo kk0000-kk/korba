@@ -6,7 +6,7 @@ require_relative "korba/tle"
 require_relative "korba/kep"
 require_relative "korba/car"
 require_relative "korba/orbit_utils"
-require_relative "korba/kepler_equation_fucntion"
+require_relative "korba/keplers_equation"
 require_relative "korba/sgp4/elset_rec"
 require_relative "korba/sgp4/sgp4"
 
