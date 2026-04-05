@@ -43,7 +43,7 @@ module Korba
       v = [0, 0, 0]
 
       @element_set_record.error = 0
-      SGP4.sgp4(@element_set_record, minutesAfterEpoch, r, v)
+      Propagator::SGP4.sgp4(@element_set_record, minutesAfterEpoch, r, v)
       @sgp4Error = @element_set_record.error
       r = r.map { _1 * 1000 }
       v = v.map { _1 * 1000 }
@@ -121,13 +121,13 @@ module Korba
 
     def set_epoch_datetime_and_julian_date
       @epoch_datetime = Time.new(@epoch + " UTC")
-      @julian_date = SGP4.jday(
+      @julian_date = Propagator::SGP4.jday(
         epoch_datetime.year, epoch_datetime.mon, epoch_datetime.day, epoch_datetime.hour, epoch_datetime.min, epoch_datetime.sec
       )
     end
 
     def set_element_set_record_values
-      @element_set_record = ElsetRec.new
+      @element_set_record = Sgp4::ElsetRec.new
       @element_set_record.whichconst = 3 # wgs84
       @element_set_record.epochyr = epoch_datetime.year
       @element_set_record.epochdays = epoch_days
@@ -150,7 +150,7 @@ module Korba
       @element_set_record.ndot = mean_motion_dot / (xpdotp * 1440.0)
       @element_set_record.nddot = mean_motion_ddot / (xpdotp * 1440.0 * 1440.0)
       # update element_set_record
-      SGP4.sgp4init("a", @element_set_record)
+      Propagator::SGP4.sgp4init("a", @element_set_record)
     end
   end
 end
