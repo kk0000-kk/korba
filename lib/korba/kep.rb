@@ -19,13 +19,23 @@ module Korba
     end
 
     def to_car
-      vector_n = Vector[
-        Math.sin(deg_to_rad(inclination)) * Math.sin(deg_to_rad(ra_of_asc_node)),
-        -Math.sin(deg_to_rad(inclination)) * Math.cos(deg_to_rad(ra_of_asc_node)),
-        Math.cos(deg_to_rad(inclination))
-      ]
-      vector_omega = Vector[Math.cos(deg_to_rad(ra_of_asc_node)), Math.sin(deg_to_rad(ra_of_asc_node)), 0]
-      vector_m = vector_n.cross(vector_omega)
+      # 特異点対応: inclinationが0（または極めて小さい）場合の処理
+      is_equatorial = inclination.abs < 1e-10
+
+      if is_equatorial
+        # 赤道面内の場合、x軸を基準にする
+        vector_omega = Vector[1.0, 0.0, 0.0]
+        vector_m = Vector[0.0, 1.0, 0.0]
+        vector_n = Vector[0.0, 0.0, 1.0]
+      else
+        vector_n = Vector[
+          Math.sin(deg_to_rad(inclination)) * Math.sin(deg_to_rad(ra_of_asc_node)),
+          -Math.sin(deg_to_rad(inclination)) * Math.cos(deg_to_rad(ra_of_asc_node)),
+          Math.cos(deg_to_rad(inclination))
+        ]
+        vector_omega = Vector[Math.cos(deg_to_rad(ra_of_asc_node)), Math.sin(deg_to_rad(ra_of_asc_node)), 0.0]
+        vector_m = vector_n.cross(vector_omega)
+      end
 
       r_angle_factor = deg_to_rad(arg_of_pericenter + true_anomaly)
       vector_r = distance * (Math.cos(r_angle_factor) * vector_omega + Math.sin(r_angle_factor) * vector_m)
