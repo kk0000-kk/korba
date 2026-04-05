@@ -8,8 +8,7 @@ require_relative "korba/car"
 require_relative "korba/orbit_utils"
 require_relative "korba/keplers_equation"
 require_relative "korba/sgp4/elset_rec"
-require_relative "korba/propagator/sgp4"
-require_relative "korba/propagator/rk4"
+require_relative "korba/sgp4/sgp4"
 
 module Korba
 end
