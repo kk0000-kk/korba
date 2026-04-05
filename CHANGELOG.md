@@ -1,3 +1,7 @@
+## [0.7.1] - 2026-04-05
+
+- FIX: Fixed calculation when orbital inclination and eccentricity are 0
+
 ## [0.7.0] - 2026-04-01
 
 - FIX: Use SGP4 for TLE to Cartesian conversion
