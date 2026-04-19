@@ -1,3 +1,8 @@
+## [0.8.0] - 2026-04-19
+
+- Enable orbit propagation using 4th-order Runge-Kutta
+- Enable conversion from Cartesian to Keplerian elements
+
 ## [0.7.1] - 2026-04-05
 
 - FIX: Fixed calculation when orbital inclination and eccentricity are 0
