@@ -42,6 +42,14 @@ module Korba
       v_angle_factor = deg_to_rad(arg_of_pericenter + true_anomaly - path_angle)
       vector_v = velocity * (-Math.sin(v_angle_factor) * vector_omega + (Math.cos(v_angle_factor)) * vector_m)
 
+      # NOTE: こっちでもいい
+      # factor_matrix = Matrix[[Math.cos(deg_to_rad(ra_of_asc_node)), -Math.sin(deg_to_rad(ra_of_asc_node)) * Math.cos(deg_to_rad(inclination))],
+      #                        [Math.sin(deg_to_rad(ra_of_asc_node)), Math.cos(deg_to_rad(ra_of_asc_node)) * Math.cos(deg_to_rad(inclination))],
+      #                        [0, Math.sin(deg_to_rad(inclination))]] *
+      #                 Matrix[[Math.cos(deg_to_rad(arg_of_pericenter)), -Math.sin(deg_to_rad(arg_of_pericenter))], [Math.sin(deg_to_rad(arg_of_pericenter)), Math.cos(deg_to_rad(arg_of_pericenter))]]
+      # vector_r = Vector[*(factor_matrix * Matrix[[Math.cos(deg_to_rad(true_anomaly)) - eccentricity], [Math.sqrt(1 - eccentricity ** 2) * Math.sin(deg_to_rad(true_anomaly))]] * semi_major_axis).to_a.flatten]
+      # vector_v = Vector[*(factor_matrix * Matrix[[-Math.sin(deg_to_rad(true_anomaly))], [Math.sqrt(1 - eccentricity ** 2) * Math.cos(deg_to_rad(true_anomaly))]] * Math.sqrt(Constant::GME * semi_major_axis) / vector_r.norm).to_a.flatten]
+
       Car.new(object_name:, epoch:, x: vector_r[0], y: vector_r[1], z: vector_r[2], vx: vector_v[0], vy: vector_v[1], vz: vector_v[2])
     end
   end
