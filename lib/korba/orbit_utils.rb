@@ -7,6 +7,10 @@ module Korba
       (Constant::GME / (mean_motion * 2.0 * Math::PI / 86400.0) ** 2.0) ** (1.0 / 3.0)
     end
 
+    def period
+      2.0 * Math::PI * Math.sqrt(semi_major_axis ** 3 / Constant::GME)
+    end
+
     def height_at_perigee
       semi_major_axis * (1 - eccentricity) - Constant::EARTH_RADIUS
     end
