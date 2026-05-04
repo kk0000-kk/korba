@@ -1,3 +1,7 @@
+## [0.9.0] - 2026-05-04
+
+- Enable orbit propagation with Keplerian elements
+
 ## [0.8.0] - 2026-04-19
 
 - Enable orbit propagation using 4th-order Runge-Kutta
