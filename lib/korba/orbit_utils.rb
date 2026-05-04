@@ -54,10 +54,7 @@ module Korba
     end
 
     def normalize_rad(rad)
-      rad = rad + 2.0 * Math::PI if rad < 0
-      normalize_rad = rad > 2.0 * Math::PI ? rad - 2.0 * Math::PI : rad
-      normalize_rad(normalize_rad) if normalize_rad != rad
-      normalize_rad
+      rad % (2.0 * Math::PI)
     end
 
     def rad_to_deg(rad)
@@ -66,10 +63,7 @@ module Korba
     end
 
     def normalize_deg(deg)
-      deg = deg + 360.0 if deg < 0
-      normalized_deg = deg > 360.0 ? deg - 360.0 : deg
-      normalize_deg(normalized_deg) if normalized_deg != deg
-      normalized_deg
+      deg % 360.0
     end
   end
 end
