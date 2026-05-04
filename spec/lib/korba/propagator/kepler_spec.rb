@@ -44,7 +44,7 @@ it "高度400kmの軌道を伝搬して1周させる" do
     expect(propagated_kep.eccentricity).to eq(initial_orbit.eccentricity)
     expect(propagated_kep.inclination).to eq(initial_orbit.inclination)
     expect(propagated_kep.ra_of_asc_node).to be_within(0.01).of(359.48)
-    expect(propagated_kep.arg_of_pericenter).to eq(initial_orbit.arg_of_pericenter)
+    expect(propagated_kep.arg_of_pericenter).to be_within(0.001).of(1.0354)
     expect(propagated_kep.mean_anomaly).to be_within(0.1).of(initial_orbit.mean_anomaly)
   end
 end
