@@ -7,6 +7,10 @@ module Korba
       (Constant::GME / (mean_motion * 2.0 * Math::PI / 86400.0) ** 2.0) ** (1.0 / 3.0)
     end
 
+    def period
+      2.0 * Math::PI * Math.sqrt(semi_major_axis ** 3 / Constant::GME)
+    end
+
     def height_at_perigee
       semi_major_axis * (1 - eccentricity) - Constant::EARTH_RADIUS
     end
@@ -50,10 +54,7 @@ module Korba
     end
 
     def normalize_rad(rad)
-      rad = rad + 2.0 * Math::PI if rad < 0
-      normalize_rad = rad > 2.0 * Math::PI ? rad - 2.0 * Math::PI : rad
-      normalize_rad(normalize_rad) if normalize_rad != rad
-      normalize_rad
+      rad % (2.0 * Math::PI)
     end
 
     def rad_to_deg(rad)
@@ -62,10 +63,7 @@ module Korba
     end
 
     def normalize_deg(deg)
-      deg = deg + 360.0 if deg < 0
-      normalized_deg = deg > 360.0 ? deg - 360.0 : deg
-      normalize_deg(normalized_deg) if normalized_deg != deg
-      normalized_deg
+      deg % 360.0
     end
   end
 end
