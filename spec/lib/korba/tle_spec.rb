@@ -137,9 +137,9 @@ RSpec.describe Korba::Tle do
       2 25544 51.6437 54.3833 0001250 307.1355 142.9078 15.48901431297630
     TLE
     tle = Korba::Tle.new(tle_text, type: :string)
+    expect(tle.epoch_datetime).to eq(Time.new("2021-08-14T11:51:12.301631 UTC"))
     car = tle.propagate_to(728.7949728166666)
-    # TODO: 伝搬後のepochにする
-    expect(car.epoch).to eq(Time.new("2021-08-14T11:51:12.301631 UTC"))
+    expect(car.epoch).to be_within(0.000001).of(Time.new("2021-08-15T00:00:00.000000 UTC"))
     expect(car.x).to be_within(0.001).of(1628523.7584667166)
     expect(car.y).to be_within(0.001).of(5888992.573497506)
     expect(car.z).to be_within(0.001).of(2972828.0145221233)

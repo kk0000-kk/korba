@@ -47,7 +47,7 @@ module Korba
       @sgp4Error = @element_set_record.error
       r = r.map { _1 * 1000 }
       v = v.map { _1 * 1000 }
-      Car.new(object_name:, epoch: epoch_datetime, x: r[0], y: r[1], z: r[2], vx: v[0], vy: v[1], vz: v[2])
+      Car.new(object_name:, epoch: epoch_datetime + minutesAfterEpoch * 60.0, x: r[0], y: r[1], z: r[2], vx: v[0], vy: v[1], vz: v[2])
     end
 
     private
