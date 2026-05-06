@@ -35,7 +35,7 @@ RSpec.describe Korba::Orbit do
       expect(orbit.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
       expect(orbit.name).to eq("ISS (ZARYA)")
 
-      car = orbit.car
+      car = orbit.cartesian
       expect(car.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
       expect(car.x).to be_within(0.001).of(4022283.8158334093)
       expect(car.y).to be_within(0.001).of(-3620488.4544254433)
@@ -44,7 +44,7 @@ RSpec.describe Korba::Orbit do
       expect(car.vy).to be_within(0.001).of(2490.4710952527043)
       expect(car.vz).to be_within(0.001).of(-3820.564288284213)
 
-      kep = orbit.kep
+      kep = orbit.keplerian
       expect(kep.object_name).to eq("ISS (ZARYA)")
       expect(kep.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
       expect(kep.eccentricity).to eq(0.0006817)
@@ -67,7 +67,7 @@ RSpec.describe Korba::Orbit do
       expect(orbit.tle.epoch_datetime).to eq(Time.new("2021-08-14T11:51:12.301631 UTC"))
 
       propagated_orbit = orbit.propagate(type: :sgp4, seconds_after_epoch: 728.7949728166666 * 60.0)
-      car = propagated_orbit.car
+      car = propagated_orbit.cartesian
       expect(car.epoch).to be_within(0.000001).of(Time.new("2021-08-15T00:00:00.000000 UTC"))
       expect(car.x).to be_within(0.001).of(1628523.7584667166)
       expect(car.y).to be_within(0.001).of(5888992.573497506)
@@ -87,7 +87,7 @@ RSpec.describe Korba::Orbit do
       expect(orbit.tle.epoch_datetime).to eq(Time.new("2021-08-14T11:51:12.301631 UTC"))
 
       propagated_orbit = orbit.propagate(type: :rk4, seconds_after_epoch: 728.7949728166666 * 60.0)
-      car = propagated_orbit.car
+      car = propagated_orbit.cartesian
       expect(car.epoch).to be_within(0.000001).of(Time.new("2021-08-15T00:00:00.000000 UTC"))
       expect(car.x).to be_within(0.001).of(1632653.9188536466)
       expect(car.y).to be_within(0.001).of(5889777.609733359)
@@ -107,7 +107,7 @@ RSpec.describe Korba::Orbit do
       expect(orbit.tle.epoch_datetime).to eq(Time.new("2021-08-14T11:51:12.301631 UTC"))
 
       propagated_orbit = orbit.propagate(type: :kepler, seconds_after_epoch: 728.7949728166666 * 60.0)
-      car = propagated_orbit.car
+      car = propagated_orbit.cartesian
       expect(car.epoch).to be_within(0.000001).of(Time.new("2021-08-15T00:00:00.000000 UTC"))
       expect(car.x).to be_within(0.001).of(1622933.1965950136)
       expect(car.y).to be_within(0.001).of(5889951.975955185)
@@ -130,9 +130,9 @@ RSpec.describe Korba::Orbit do
         epoch: Time.new("2024-12-07T20:37:24.085055 UTC"),
         semi_major_axis: 6793877.651258321,
       )
-      orbit = Korba::Orbit.from_kep(kep)
+      orbit = Korba::Orbit.from_keplerian(kep)
 
-      kep = orbit.kep
+      kep = orbit.keplerian
       expect(kep.object_name).to eq("ISS (ZARYA)")
       expect(kep.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
       expect(kep.eccentricity).to eq(0.0006817)
@@ -144,7 +144,7 @@ RSpec.describe Korba::Orbit do
       expect(kep.height_at_apogee).to eq(420372.03765318263)
       expect(kep.height_at_perigee).to eq(411109.26486345753)
 
-      car = orbit.car
+      car = orbit.cartesian
       expect(car.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
       expect(car.x).to be_within(0.001).of(4019753.8630564497)
       expect(car.y).to be_within(0.001).of(-3623966.5194109976)
@@ -167,9 +167,9 @@ RSpec.describe Korba::Orbit do
         vy: 2489.330,
         vz: -3816.030,
       )
-      orbit = Korba::Orbit.from_car(car)
+      orbit = Korba::Orbit.from_cartesian(car)
 
-      car = orbit.car
+      car = orbit.cartesian
       expect(car.object_name).to eq("ISS (ZARYA)")
       expect(car.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
       expect(car.x).to be_within(0.001).of(4019753.863)
@@ -179,7 +179,7 @@ RSpec.describe Korba::Orbit do
       expect(car.vy).to be_within(0.001).of(2489.330)
       expect(car.vz).to be_within(0.001).of(-3816.030)
 
-      kep = orbit.kep
+      kep = orbit.keplerian
       expect(kep.object_name).to eq("ISS (ZARYA)")
       expect(kep.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
       expect(kep.eccentricity).to be_within(0.0000001).of(0.0006817)

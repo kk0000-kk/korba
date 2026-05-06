@@ -2,28 +2,28 @@
 
 module Korba
   module Converter
-    def tle_to_car(tle)
+    def tle_to_cartesian(tle)
       return nil if tle.nil?
 
       tle.to_car
     end
 
-    def tle_to_kep(tle)
+    def tle_to_keplerian(tle)
       return nil if tle.nil?
 
       tle.to_kep
     end
 
-    def kep_to_car(kep)
-      return nil if kep.nil?
+    def keplerian_to_cartesian(keplerian)
+      return nil if keplerian.nil?
 
-      kep.to_car
+      keplerian.to_car
     end
 
-    def car_to_kep(car)
-      return nil if car.nil?
+    def cartesian_to_keplerian(cartesian)
+      return nil if cartesian.nil?
 
-      car.to_kep
+      cartesian.to_kep
     end
   end
 end
