@@ -8,7 +8,7 @@ RSpec.describe Korba::Kep do
     ra_of_asc_node: 174.9565,
     arg_of_pericenter: 314.0303,
     mean_anomaly: 175.4461,
-    epoch: "2024-12-07T20:37:24.085056",
+    epoch: Time.new("2024-12-07T20:37:24.085055 UTC"),
     semi_major_axis: 6793877.649839985,
   )
 
