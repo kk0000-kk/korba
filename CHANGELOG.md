@@ -1,3 +1,8 @@
+## [0.9.1] - 2026-05-06
+
+- FIX: TLE epoch handling: convert to datetime and adjust SGP4 propagation epoch
+- feat: Implement Orbit Model
+
 ## [0.9.0] - 2026-05-04
 
 - Enable orbit propagation with Keplerian elements

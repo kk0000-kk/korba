@@ -4,7 +4,7 @@ RSpec.describe Korba::Car do
   describe "#to_kep" do
     car = Korba::Car.new(
       object_name: "ISS (ZARYA)",
-      epoch: "2024-12-07T20:37:24.085056",
+      epoch: Time.new("2024-12-07T20:37:24.085056 UTC"),
       x: 4019753.862,
       y: -3623966.519,
       z: 4114361.693,
@@ -16,7 +16,7 @@ RSpec.describe Korba::Car do
     it "can transform to kep" do
       kep = car.to_kep
       expect(kep.object_name).to eq("ISS (ZARYA)")
-      expect(kep.epoch).to eq("2024-12-07T20:37:24.085056")
+      expect(kep.epoch).to eq(Time.new("2024-12-07T20:37:24.085056 UTC"))
       expect(kep.semi_major_axis).to be_within(100).of(6793877.649839985)
       expect(kep.eccentricity).to be_within(0.0000001).of(0.0006817)
       expect(kep.inclination).to be_within(0.0001).of(51.6381)

@@ -70,7 +70,7 @@ RSpec.describe Korba::Tle do
     tle = Korba::Tle.new(tle_json, type: :json)
     kep = tle.to_kep
     expect(kep.object_name).to eq("ISS (ZARYA)")
-    expect(kep.epoch).to eq("2024-12-07T20:37:24.085056")
+    expect(kep.epoch).to eq(Time.new("2024-12-07T20:37:24.085056 UTC"))
     expect(kep.eccentricity).to eq(0.0006817)
     expect(kep.inclination).to eq(51.6381)
     expect(kep.ra_of_asc_node).to eq(174.9565)
@@ -121,6 +121,7 @@ RSpec.describe Korba::Tle do
     TLE
     tle = Korba::Tle.new(tle_text, type: :string)
     car = tle.propagate_to(0)
+    expect(car.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
     expect(car.x).to be_within(0.001).of(4022283.8158334093)
     expect(car.y).to be_within(0.001).of(-3620488.4544254433)
     expect(car.z).to be_within(0.001).of(4106764.232424791)
@@ -136,7 +137,9 @@ RSpec.describe Korba::Tle do
       2 25544 51.6437 54.3833 0001250 307.1355 142.9078 15.48901431297630
     TLE
     tle = Korba::Tle.new(tle_text, type: :string)
+    expect(tle.epoch_datetime).to eq(Time.new("2021-08-14T11:51:12.301631 UTC"))
     car = tle.propagate_to(728.7949728166666)
+    expect(car.epoch).to be_within(0.000001).of(Time.new("2021-08-15T00:00:00.000000 UTC"))
     expect(car.x).to be_within(0.001).of(1628523.7584667166)
     expect(car.y).to be_within(0.001).of(5888992.573497506)
     expect(car.z).to be_within(0.001).of(2972828.0145221233)
