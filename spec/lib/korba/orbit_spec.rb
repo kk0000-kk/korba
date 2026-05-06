@@ -117,4 +117,41 @@ RSpec.describe Korba::Orbit do
       expect(car.vz).to be_within(0.001).of(4978.331300943234)
     end
   end
+
+    describe 'keplerian' do
+    it "keplerianから軌道を生成できること" do
+      kep = Korba::Kep.new(
+        object_name: "ISS (ZARYA)",
+        eccentricity: 0.0006817,
+        inclination: 51.6381,
+        ra_of_asc_node: 174.9565,
+        arg_of_pericenter: 314.0303,
+        mean_anomaly: 175.4461,
+        epoch: Time.new("2024-12-07T20:37:24.085055 UTC"),
+        semi_major_axis: 6793877.651258321,
+      )
+      orbit = Korba::Orbit.from_kep(kep)
+
+      kep = orbit.kep
+      expect(kep.object_name).to eq("ISS (ZARYA)")
+      expect(kep.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
+      expect(kep.eccentricity).to eq(0.0006817)
+      expect(kep.inclination).to eq(51.6381)
+      expect(kep.ra_of_asc_node).to eq(174.9565)
+      expect(kep.arg_of_pericenter).to eq(314.0303)
+      expect(kep.mean_anomaly).to eq(175.4461)
+      expect(kep.semi_major_axis).to eq(6793877.651258321)
+      expect(kep.height_at_apogee).to eq(420372.03765318263)
+      expect(kep.height_at_perigee).to eq(411109.26486345753)
+
+      car = orbit.car
+      expect(car.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
+      expect(car.x).to be_within(0.001).of(4019753.8630564497)
+      expect(car.y).to be_within(0.001).of(-3623966.5194109976)
+      expect(car.z).to be_within(0.001).of(4114361.694309395)
+      expect(car.vx).to be_within(0.001).of(6150.77241020284)
+      expect(car.vy).to be_within(0.001).of(2489.329877850559)
+      expect(car.vz).to be_within(0.001).of(-3816.0301662670786)
+    end
+  end
 end
