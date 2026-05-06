@@ -118,7 +118,7 @@ RSpec.describe Korba::Orbit do
     end
   end
 
-    describe 'keplerian' do
+  describe 'keplerian' do
     it "keplerianから軌道を生成できること" do
       kep = Korba::Kep.new(
         object_name: "ISS (ZARYA)",
@@ -152,6 +152,44 @@ RSpec.describe Korba::Orbit do
       expect(car.vx).to be_within(0.001).of(6150.77241020284)
       expect(car.vy).to be_within(0.001).of(2489.329877850559)
       expect(car.vz).to be_within(0.001).of(-3816.0301662670786)
+    end
+  end
+
+  describe 'cartesian' do
+    it "cartesianから軌道を生成できること" do
+      car = Korba::Car.new(
+        object_name: "ISS (ZARYA)",
+        epoch: Time.new("2024-12-07T20:37:24.085055 UTC"),
+        x: 4019753.863,
+        y: -3623966.519,
+        z: 4114361.694,
+        vx: 6150.772,
+        vy: 2489.330,
+        vz: -3816.030,
+      )
+      orbit = Korba::Orbit.from_car(car)
+
+      car = orbit.car
+      expect(car.object_name).to eq("ISS (ZARYA)")
+      expect(car.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
+      expect(car.x).to be_within(0.001).of(4019753.863)
+      expect(car.y).to be_within(0.001).of(-3623966.519)
+      expect(car.z).to be_within(0.001).of(4114361.694)
+      expect(car.vx).to be_within(0.001).of(6150.772)
+      expect(car.vy).to be_within(0.001).of(2489.330)
+      expect(car.vz).to be_within(0.001).of(-3816.030)
+
+      kep = orbit.kep
+      expect(kep.object_name).to eq("ISS (ZARYA)")
+      expect(kep.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
+      expect(kep.eccentricity).to be_within(0.0000001).of(0.0006817)
+      expect(kep.inclination).to be_within(0.0001).of(51.6381)
+      expect(kep.ra_of_asc_node).to be_within(0.0001).of(174.9565)
+      expect(kep.arg_of_pericenter).to be_within(0.01).of(314.0303)
+      expect(kep.mean_anomaly).to be_within(0.01).of(175.4461)
+      expect(kep.semi_major_axis).to be_within(1).of(6793877.651258321)
+      expect(kep.height_at_apogee).to be_within(0.02).of(420372.03765318263)
+      expect(kep.height_at_perigee).to be_within(2).of(411109.26486345753)
     end
   end
 end

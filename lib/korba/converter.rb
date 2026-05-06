@@ -19,5 +19,11 @@ module Korba
 
       kep.to_car
     end
+
+    def car_to_kep(car)
+      return nil if car.nil?
+
+      car.to_kep
+    end
   end
 end

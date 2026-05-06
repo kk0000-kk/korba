@@ -33,7 +33,7 @@ module Korba
     end
 
     def kep
-      @kep ||= tle_to_kep(tle)
+      @kep ||= tle_to_kep(tle) || car_to_kep(car)
     end
 
     def propagate(type:, seconds_after_epoch:, disable_j2: false)
