@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Orbital elements calculation library"
   spec.description = "Orbital elements calculation library"
   spec.homepage = "https://github.com/kk0000-kk/korba"
-  spec.required_ruby_version = ">= 3.0.0"
+  spec.required_ruby_version = ">= 3.2.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
