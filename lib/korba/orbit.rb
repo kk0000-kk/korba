@@ -3,12 +3,12 @@
 module Korba
   class Orbit
     include Converter
-    attr_reader :epoch, :name, :tle
+    attr_reader :epoch, :name, :tle, :frame
 
     class << self
       def from_tle(tle = nil, type: :string)
         tle = Tle.new(tle, type:)
-        new(tle:, epoch: tle.epoch_datetime, name: tle.object_name)
+        new(tle:, epoch: tle.epoch_datetime, name: tle.object_name, frame: Frame::ECI_TEME)
       end
 
       def from_keplerian(keplerian)
@@ -20,12 +20,13 @@ module Korba
       end
     end
 
-    def initialize(keplerian: nil, cartesian: nil, tle: nil, epoch: nil, name: nil)
+    def initialize(keplerian: nil, cartesian: nil, tle: nil, epoch: nil, name: nil, frame: Frame::ECI_J2000)
       @keplerian = keplerian
       @cartesian = cartesian
       @tle = tle
       @epoch = epoch
       @name = name
+      @frame = frame
     end
 
     def cartesian

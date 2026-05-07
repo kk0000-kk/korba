@@ -34,6 +34,7 @@ RSpec.describe Korba::Orbit do
       expect(orbit.tle.julian_date[1]).to be_within(0.000001).of(0.8593055)
       expect(orbit.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
       expect(orbit.name).to eq("ISS (ZARYA)")
+      expect(orbit.frame).to eq(Korba::Frame::ECI_TEME)
 
       car = orbit.cartesian
       expect(car.epoch).to eq(Time.new("2024-12-07T20:37:24.085055 UTC"))
@@ -131,6 +132,7 @@ RSpec.describe Korba::Orbit do
         semi_major_axis: 6793877.651258321,
       )
       orbit = Korba::Orbit.from_keplerian(kep)
+      expect(orbit.frame).to eq(Korba::Frame::ECI_J2000)
 
       kep = orbit.keplerian
       expect(kep.object_name).to eq("ISS (ZARYA)")
@@ -168,6 +170,7 @@ RSpec.describe Korba::Orbit do
         vz: -3816.030,
       )
       orbit = Korba::Orbit.from_cartesian(car)
+      expect(orbit.frame).to eq(Korba::Frame::ECI_J2000)
 
       car = orbit.cartesian
       expect(car.object_name).to eq("ISS (ZARYA)")
